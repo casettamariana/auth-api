@@ -2,14 +2,14 @@ const UserService = require('../services/user.serivce')
 const usersList = require('../db')
 
 class UsersController {
-    _userSerivce = null
+    _userService = null
 
     constructor(users) {
-        this._userSerivce = new UserService(users)
+        this._userService = new UserService(users)
     }
 
-    async list(req, res) {
-        const user = req.locals?.user
+    list = async (req, res) => {
+        const user = res.locals?.user
         try {
             const users = this._userService.list(user.role)
             return res.json({ data: users })
@@ -21,7 +21,7 @@ class UsersController {
         }
     }
 
-    async show(req, res) {
+    show = async (req, res) => {
         const id = req.params?.id
         const { id: tokenId, role: tokenRole } = res.locals?.user
         try {
@@ -32,13 +32,13 @@ class UsersController {
         }
     }
 
-    async create(req, res) {
+    create = async (req, res) => {
         const userData = req.body
         const user = this._userService.create(userData)
         return res.status(201).json({ data: user })
     }
 
-    async update(req, res) {
+    update = async (req, res) => {
         const id = req.params?.id
         const newUserData = req.body
         const { id: tokenId, role: tokenRole } = res.locals?.user
@@ -50,7 +50,7 @@ class UsersController {
         }
     }
 
-    async destroy(req, res) {
+    destroy = async (req, res) => {
         const id = req.params?.id
         const { id: tokenId, role: tokenRole } = res.locals?.user
         try {
@@ -61,7 +61,7 @@ class UsersController {
         }
     }
 
-    _handleError(res, error) {
+    _handleError = (res, error) => {
         if (error.message === 'user not found') {
             return res.status(404).json({ error: error.message })
         } else if (error.message === 'forbidden') {
