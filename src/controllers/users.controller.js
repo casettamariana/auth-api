@@ -62,7 +62,7 @@ class UsersController {
     }
 
     _handleError = (res, error) => {
-        if (error.message === 'user not found') {
+        if (error?.message === 'user not found') {
             return res.status(404).json({ error: error.message })
         } else if (error.message === 'forbidden') {
             return res.status(403).json({ error: error.message })

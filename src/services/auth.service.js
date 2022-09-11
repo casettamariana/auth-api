@@ -4,7 +4,7 @@ const JWT = require('../services/jwt.service')
 const jwtSecret = JWT.getSecret()
 
 class AuthService {
-    genToken(userData, users) {
+    genToken = (userData, users) => {
         const email = userData?.email
         const password = userData?.password
 
@@ -15,8 +15,9 @@ class AuthService {
         return jwt.sign(user, jwtSecret)
     }
 
-    expireToken(user) {
-        return jwt.sign(user, jwtSecret, { expiresIn: (Math.floor(Date.now() / 1000) - 30).toString() })
+    expireToken = (user) => {
+        // const expireParam = (Math.floor(Date.now() / 1000) - 30).toString();
+        return jwt.sign(user, jwtSecret, { expiresIn: '1s' })
     }
 }
 

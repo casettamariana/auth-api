@@ -55,6 +55,13 @@ class UserService {
             throw new Error('forbidden')
         }
     }
+
+    _checkRole = (email, password) => {
+        const user = this._users.find(user => 
+            user.email === email && user.password === password
+        )
+        return user.role;
+    }
 }
 
 module.exports = UserService
